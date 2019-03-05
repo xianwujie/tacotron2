@@ -1,0 +1,19 @@
+#看代码，跑通tacotron2的过程。
+#首先是训练前端，不涉及wavenet的语音合成
+1.按照redame.md给出的步骤，先装好NVIDIA CUDA CUDNN这些GPU必须的东西。
+  我是ubuntu18.04的系统，参考：https://blog.csdn.net/u010801439/article/details/80483036 
+  一步一步来就能装好，遇到不懂的英语提示一定要翻译，这是个深坑
+  然后下载 安装各个缺失模块
+  有一个问题就是requirements.py里的numpy和pytorch的numpy版本冲突，可以去掉这一项，按照pytorch的版本来就行
+2.训练按照步骤
+  DUMMY就是文本之前的一个目录，如果这一步有问题打开文本看一下目录对不对，
+  如果超出cuda内存就需要把bath_size改小一些。
+  PIL的问题，需要安装正确的tensorboardX,或者注释掉 logger.log_validation(reduced_val_loss, model, y, y_pred, iteration)这一句
+  然后就可以训练了，训练40000布，损失大概在0.4左右
+3.用waveglow合成语音
+  可以自己训练也可以下载合成好的模型训练
+  我现在是用合成好的模型合成
+  按照waveglow页面的步骤来，下载MEL和.pt那两个文件放在waveglow下。
+  然后训练：python3 inference.py -f <(ls mel_spectrograms/mel_spectrograms/*.pt) -w waveglow_old.pt -o . --is_fp16 -s 0.6
+  我现在出来结果是把mel_spectrograms/mel_spectrograms/*.pt里面的文件变成了*.wav文件，
+  -------------------
