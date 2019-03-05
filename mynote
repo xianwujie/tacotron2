@@ -16,4 +16,5 @@
   按照waveglow页面的步骤来，下载MEL和.pt那两个文件放在waveglow下。
   然后训练：python3 inference.py -f <(ls mel_spectrograms/mel_spectrograms/*.pt) -w waveglow_old.pt -o . --is_fp16 -s 0.6
   我现在出来结果是把mel_spectrograms/mel_spectrograms/*.pt里面的文件变成了*.wav文件，
+  对应的是ljs_audio_text_test_filelist.txt 里的文本内容，如果想合成文本里其他内容，就把文件名改成这条文本的名字。
   -------------------
